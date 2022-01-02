@@ -4,7 +4,7 @@ import hashlib
 class UserModel(db.Model):
     __tablename__ = 'users'
     
-    user_id_cpf = db.Column(db.Integer, primary_key=True)
+    cpf = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50))
     password = db.Column(db.String(128))
     
@@ -24,13 +24,17 @@ class UserModel(db.Model):
     
     @classmethod
     def find_by_email(cls,email):
-        user = cls.query.find_by(email=email).first()
-        return user
+        user = cls.query.filter_by(email=email).first()
+        if user :
+            return user
+        return None
     
     @classmethod
     def find_by_cpf(cls,cpf):
-        user = cls.query.find_by(cpf=cpf)
-        return user
+        user = cls.query.filter_by(cpf=cpf).first()
+        if user :
+            return user
+        return None
     
     def save_user(self):
         db.session.add(self)
