@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 #from resources.user import UserLogin
 from resources.user import RegisterUsers, Login
+from resources.data import Data
 from sql_alchemy import db
 from flask_jwt_extended import JWTManager
 
@@ -28,6 +29,7 @@ def create_db():
 
 api.add_resource(Login,'/login')
 api.add_resource(RegisterUsers,'/login/register')
+api.add_resource(Data,'/data')
 
 if __name__ == '__main__':
     app.run(debug=True)
