@@ -7,13 +7,15 @@ attributes.add_argument('email', type=str, required=True, help='The field email 
 attributes.add_argument('password',type=str, required=True, help='The field password cannot be empty.')
 
 
-class Register(Resource):
+class RegisterUsers(Resource):
     
     def post(self):
         data = attributes.parse_args()
         
         if UserModel.find_by_email(data['email']):
             return {'mensage':f"Address email '{data['email']}' is already registered."}
+        elif UserModel.find_by_cpf(data['cpf']):
+            return {'mensage':f"Cpf '{data['cpf']}' is already registered."}
         
         user_hash = UserModel.generate_hash(data['password'])
         user = UserModel(data['cpf'],data['email'],user_hash)
