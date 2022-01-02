@@ -12,7 +12,14 @@ class UserModel(db.Model):
         self.email = email
         self.password = password
         
-    
+    def generate_hash(self,*args):
+        word=''
+        for arg in args:
+            tmp=str(arg)
+            word+=tmp
+        m=hashlib.sha512()
+        m.update(word.encode('utf-8'))
+        return m.hexdigest()
     
 
            
