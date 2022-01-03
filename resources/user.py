@@ -1,7 +1,13 @@
 from flask_restful import Resource, reqparse
+from werkzeug.datastructures import Headers
 from models.user import UserModel
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import create_access_token
+from json import dumps
+import jwt
+
+
+
 
 
 
@@ -52,7 +58,14 @@ class Login(Resource):
         hash_passwd = UserModel.generate_hash(data['password'])# gera hash da senha para compara com a salva o banco de dados
         
         if user and safe_str_cmp(user.password, hash_passwd) and safe_str_cmp(user.email, data['email']): # verifica se exister o user ese senha e  email sao iguais ao salvos
-            access_token = create_access_token(identity=user.email+user.password) # gera um token com o email e o cpf(chave primaria)
-            return {'access_token': access_token}, 200 #OK
+            
+            payload = {
+                "id":user.cpf,
+                "email":user.email
+            }
+            #get_jwt ( )
+            #decode_ token ()
+            access_token = jwt.encode(payload,'secret','HS512')
+            return {'access_token':f'Bearer {access_token}'}, 200 #OK
             
         return {'mensage':'Login Failed'}, 401 #unauthorized
