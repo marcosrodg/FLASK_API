@@ -78,8 +78,8 @@ class Login(Resource):
             
             # dados do usuario atual para gerar o token
             payload = {
-                "cpf":user.cpf,
-                "email":user.email
+                "cpf":user.cpf, #campo "cpf" recebe cpf do usuario atual 
+                "email":user.email #campo "email" recebe email do usuario atual 
             }
             
             # cria se um token com os dados do payload e e assinatura digital SHA-512 configurada em "app"
