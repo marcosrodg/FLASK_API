@@ -1,4 +1,98 @@
-# FLASK_API Doc
+# FLASK_API DOCUMETAÇÃO
+
+
+* ## Preparando o Ambiente para Executando a Api
+
+
+Clone ou faça o Download do repositorio em uma pasta em sua maquina
+abra a pasta raiz da aplicação em um editor de texto de sua preferência e execute os comandos:
+
+Antes de qualquer coisa **certifique que tenha o python3 instaldo em sua maquina** executando o camando ``$ python3 --version`` (linux), caso não tenha siga as instruções do <www.python.org/downloads/>.
+
+
+Após a instalação do python digite os comandos:
+
+``$ python3 -m venv .venv``
+
+
+``$ source .venv/bin/activate``
+
+
+``$ pip install requirements.txt``
+
+
+**PARA EXECUÇÃO EM localhost:5000** padrão flask
+
+``$ flask run``
+
+
+**PARA EXECUÇÃO EM 0.0.0.0:<port docker>** 
+ 
+ 
+Caso não tenha o docker na maquina host instale o Docker em : <https://docs.docker.com/get-docker/> .
+
+ 
+Crie uma conta no Docker Hub <https://hub.docker.com/> .
+ 
+ 
+Na pasta raiz do projeto execute as instruções:
+
+ 
+``$ docker pull python:3.9.9-bullseye``
+ 
+ 
+``$ docker build -t flask-app:dev-0.0.1 .``
+ 
+ 
+``$ docker run -d -P flask-app:dev-0.0.1``
+ 
+
+Verifique a execução do conteiner:
+
+``$ docker ps``
+
+Caso seu conteiner estiver executando corretamente copie a porta de execução para consumir a Api.
+
+ 
+ 
+* ## Consumindo Api
+ 
+
+### Usando o Postman para fazer requisições
+
+
+Instale o Postman  em <www.postman.com/downloads/> .Após isso crie um 'workspace' e crie as seguintes rotas:
+
+
+* ``/login``
+
+
+* ``/data``
+
+
+* ``/login/register``
+
+Agora basta seguir as '**Instruções de Uso**' para fazer as requisições.
+
+
+### Usando o testes/teste.py para fazer requisições
+
+Na pasta raiz da aplicação abra um terminal e digite as seguites instruções:
+
+``$ cd testes``
+
+
+``$ python3 teste.py``
+
+
+E siga as interações do script.
+
+**ATENÇÃO: Mude a variavel URL caso a api esteja em um conteiner ou outro servidor.**
+
+
+
+
+* # Instruções de Uso
 
 Este documento explicita com exemplos, como utilizar os recursos disponíveis no FLASK API de login, acesso de dados, e registro. Assim como, as formas de se realizar uma requisição e suas possíveis respostas.
 
