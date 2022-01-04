@@ -81,9 +81,11 @@ class Login(Resource):
                 "cpf":user.cpf, #campo "cpf" recebe cpf do usuario atual 
                 "email":user.email #campo "email" recebe email do usuario atual 
             }
-            
-            # cria se um token com os dados do payload e e assinatura digital SHA-512 configurada em "app"
-            access_token = create_access_token(identity=payload)
-            return {'access_token':f'Bearer {access_token}'}, 200 #OK
+            try:
+                # cria se um token com os dados do payload e e assinatura digital SHA-512 configurada em "app"
+                access_token = create_access_token(identity=payload)
+                return {'access_token':f'Bearer {access_token}'}, 200 #OK
+            except:
+                 return {'mensage':'Login Failed: Internal Server Error'}, 500 #Internal Server Error
             
         return {'mensage':'Login Failed'}, 401 #unauthorized
