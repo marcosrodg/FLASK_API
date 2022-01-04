@@ -36,4 +36,4 @@ api.add_resource(RegisterUsers,'/login/register') # rota para se cadastrar usuar
 api.add_resource(Data,'/data') # rota para acessar os " dados do usuario "
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
