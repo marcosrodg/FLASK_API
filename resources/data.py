@@ -18,4 +18,4 @@ class Data(Resource):
             Retorna um json com uma mensagem de acesso permitido para o {email} do usuario logado
         """
         jwt_email= get_jwt()['sub'] # busca no token de acesso a informação do email
-        return {'mensage':f'Acesso permitido para {jwt_email["email"]}.'}
+        return {'mensage':f'Acesso permitido para {jwt_email["email"]}.'},200 # Ok
