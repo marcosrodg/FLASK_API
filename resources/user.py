@@ -1,14 +1,7 @@
 from flask_restful import Resource, reqparse
-from werkzeug.datastructures import Headers
 from models.user import UserModel
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import create_access_token
-from json import dumps
-import jwt
-
-
-
-
 
 
 attributes = reqparse.RequestParser() # Recebe  os argumentos passados cliente
@@ -23,6 +16,21 @@ class RegisterUsers(Resource):
         Resource (classe): RegisterUsers Herda recursos da classe Resource
     """
     def post(self):
+        """Metodo post onde se faz o registo de novos usuarios 
+        a função requer header:
+        
+        Content-Type : application/json
+        
+        body:
+            {
+                "cpf":"<cpf_user>",
+                "email":"<email_user>",
+                "password":"<password_user>"
+            }
+
+        Returns:
+            O metodo tem retornos diferentes de acordo com os dados passados em forma de json
+        """
         data = attributes.parse_args()
         
         # Verifica a existencia de usuario com o email fornecido, se sim retorna uma Bad Request (400)
@@ -46,12 +54,21 @@ class Login(Resource):
     """Login herda recursos do Resource
 
     Args:
-        Classe faz ologin com um usuario e recebe um token de autenticação
+        Classe cotem o metodo post para que o usuario possa fazer login na aplicação
 
     """
     @classmethod
     def post(cls):
-        
+        """O metodo faz o login com um usuario e recebe um token de autenticação
+
+        Returns:
+        Caso de sucesso ao logar:
+            Retorna token de autenticação jwt do tipo : 
+            "Bearer <token_access>"
+
+        Caso nao haja êxito no login:
+            Retorna a respectiva mensagem informando o que houve
+        """
         data = attributes.parse_args() # recebe os dados passados pelo usuario em formato json (cpf, email, senha)
         user = UserModel.find_by_cpf(data['cpf']) # busca opor um usuario com o cpf fornecido
         
@@ -59,13 +76,14 @@ class Login(Resource):
         
         if user and safe_str_cmp(user.password, hash_passwd) and safe_str_cmp(user.email, data['email']): # verifica se exister o user ese senha e  email sao iguais ao salvos
             
+            # dados do usuario atual para gerar o token
             payload = {
-                "id":user.cpf,
+                "cpf":user.cpf,
                 "email":user.email
             }
-            #get_jwt ( )
-            #decode_ token ()
-            access_token = jwt.encode(payload,'secret','HS512')
+            
+            # cria se um token com os dados do payload e e assinatura digital SHA-512 configurada em "app"
+            access_token = create_access_token(identity=payload)
             return {'access_token':f'Bearer {access_token}'}, 200 #OK
             
         return {'mensage':'Login Failed'}, 401 #unauthorized
