@@ -124,13 +124,14 @@ Exemplo de Requisição logar com um usuário.
 ***Resposta***
 
 
-Como resposta, obtém-se uma mensagem o token de acesso que será necessário para fazer as requisições que só podem ser feitas com login.
+Como resposta, obtém-se uma mensagem o token de acesso que será necessário para fazer as requisições que só podem ser feitas com login ou pode ocorrer algum erro do servidor ao gerar o token.
 
 
 
 |**Status**             | **Response Body**                                                                      |
 |-----------------------|----------------------------------------------------------------------------------------|
 |  200 OK               |  ```{"access_token": "Bearer                                  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0MTMxMzg0MywianRpIjoiNWI0ZTJmZTEtN2U0MC00OWI1LWJiMTMtOTBjMjdjZTA4ZmZmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJjcGYiOiIwMDAwMDAwMDAwMCIsImVtYWlsIjoiZG9jdW1lbnRhXHUwMGU3XHUwMGUzb0BlbWFpbC5jb20ifSwibmJmIjoxNjQxMzEzODQzLCJleHAiOjE2NDEzMTc0NDN9.MLokeR2UG8M-QWxKnfhU_mF7mZJ8zvXs74kMrLLK9__wupRra3_E7SWmSsFlpMuKtddG_QyzFOFo0K4TX3Jkvw"} ```                                 | 
+| 500 INTERNAL SERVER ERROR | ```{'mensage':'Login Failed:Internal Server Error '}```                            |         
 
 
 ***Requisição***
